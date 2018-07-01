@@ -7,6 +7,7 @@ const todos = require('./routes/todos')
 
 app.use(morgan('tiny'))
 app.use(bodyParser.json())
+app.use(express.static(`${__dirname}/../client`))
 
 app.use('/todos', todos)
 

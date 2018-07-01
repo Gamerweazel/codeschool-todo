@@ -12,11 +12,10 @@
 				<input class="new-todo" autofocus autocomplete="off" placeholder="Enter todo" v-model="newTodo" @keyup.enter="addTodo">
 			</header>
 			<section class="main" v-if="todos.length">
-				<input class="toggle-all" type="checkbox" v-model="allDone">
 				<ul class="todo-list">
 					<li class="todo" v-for="todo in todos" :class="{completed: todo.completed, editing: todo == editedTodo}">
 						<div class="view">
-							<input class="toggle" type="checkbox" v-model="todo.completed">
+							<input class="toggle" type="checkbox" :checked="todo.completed" @click="checkTodo(todo)">
 							<label @dblclick="editTodo(todo)">{{todo.title}}</label>
 							<button class="destroy" @click="removeTodo(todo)"></button>
 						</div>
@@ -28,9 +27,6 @@
 				<span class="todo-count">
 					<strong v-text="remaining"></strong> {{ remaining | pluralize }} left
 				</span>
-				<button class="clear-completed" @click="removeCompleted" v-show="todos.length > remaining">
-					Clear completed
-				</button>
 			</footer>
     </div>
 		<script src="vue.js"></script>
