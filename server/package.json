@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "morgan": "^1.9.0",
     "express": "^4.16.3"
   },
   "devDependencies": {
-    "morgan": "^1.9.0",
     "nodemon": "^1.17.5"
   }
 }
