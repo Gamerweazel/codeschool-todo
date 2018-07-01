@@ -1,14 +1,14 @@
 const express = require('express')
-const morgan = require('morgan')
-
 const app = express()
+const bodyParser = require('body-parser')
+const morgan = require('morgan')
+const mongoose = require('mongoose')
+const todos = require('./routes/todos')
 
 app.use(morgan('tiny'))
+app.use(bodyParser.json())
 
-app.get('/', (req, res) => {
-  res.send('hello')
-})
+app.use('/todos', todos)
 
-app.listen(3000, (req, res) => {
-  console.log('Server listening on port 3000')
-})
+mongoose.connect('mongodb://localhost:27017/todos')
+  .then(() => app.listen(3000))
