@@ -1,0 +1,42 @@
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="app" v-cloak>
+
+	<header class="header">
+		<h1>todos</h1>
+		<input class="new-todo" placeholder="Enter todo" v-model="newTodo" @keyup.enter="addTodo">
+	</header>
+
+	<section class="main">
+		<ul class="todo-list">
+			<li class="todo" :class="{ completed: todo.completed, editing: todo == editedTodo }" v-for="todo in todos">
+				<div class="view">
+					<input class="toggle" type="checkbox" v-model="todo.completed">
+					<label @dblclick="editTodo(todo)">{{ todo.title }}</label>
+					<button class="destroy" @click="deleteTodo(todo)"></button>
+				</div>
+				<input class="edit" v-model="todo.title" v-todo-focus="todo == editedTodo" type="text">
+			</li>
+		</ul>
+	</section>
+
+	<footer class="footer">
+		<span class="todo-count">
+			<strong>{{  }}</strong>
+		</span>
+	</footer>
+
+</div>
+
+<script src="vue.js"></script>
+<script src="main.js"></script>
+
+</body>
+</html>
