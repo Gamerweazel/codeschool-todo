@@ -23,7 +23,15 @@ new Vue({
 		},
 		editTodo(todo) {
 			this.editedTodo = todo
-		}
+			this.cachedTitle = todo.title
+		},
+		doneEdit(todo) {
+			this.editedTodo = null
+		},
+		cancel(todo) {
+			this.editedTodo = null
+			todo.title = this.cachedTitle
+		},
 	},
 	directives: {
 		'todo-focus'(el, binding) {
