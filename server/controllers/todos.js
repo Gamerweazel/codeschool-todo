@@ -1,3 +1,5 @@
+const Todo = require('../models/todos')
+
 const controller = {
 	listTodos: (req, res) =>
 		Todo.find()
@@ -19,3 +21,15 @@ const controller = {
 		Todo.findByIdAndRemove(req.params.id)
 			.then(() => res.status(204).send())
 }
+
+module.exports = controller
+
+
+
+
+
+
+
+
+
+
