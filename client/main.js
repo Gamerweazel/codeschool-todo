@@ -36,8 +36,31 @@ new Vue({
 			this.editedTodo = todo
 			this.cachedTitle = todo.title
 		},
+		checkTodo(todo) {
+			fetch(`http://localhost:3000/todos/${todo._id}`, {
+				method: 'PUT',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					title: todo.title,
+					completed: !todo.completed
+				})
+			})
+				.then(() => todo.completed = !todo.completed)
+		},
 		doneEdit(todo) {
-			this.editedTodo = null
+			fetch(`http://localhost:3000/todos/${todo._id}`, {
+				method: 'PUT',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					title: todo.title,
+					completed: todo.completed
+				})
+			})
+				.then(() => this.editedTodo = null)
 		},
 		cancel(todo) {
 			this.editedTodo = null
