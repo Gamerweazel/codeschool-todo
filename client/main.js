@@ -3,23 +3,34 @@ new Vue({
 	data: {
 		newTodo: '',
 		editedTodo: null,
-		todos: [
-			{
-				title: 'Be a good teacher at CodeSchool',
-				completed: false,
-			}
-		]
+		todos: []
+	},
+	created() {
+		fetch('http://localhost:3000/todos')
+			.then(res => res.json())
+			.then(todos => this.todos = todos)
 	},
 	methods: {
 		addTodo() {
-			this.todos.push({
-				title: this.newTodo,
-				completed: false,
+			fetch('http://localhost:3000/todos', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({ title: this.newTodo })
 			})
-			this.newTodo = ''
+				.then(res => res.json())
+				.then(todo => {
+					this.todos.push(todo)
+					this.newTodo = ''
+				})
+
 		},
 		deleteTodo(todo) {
-			this.todos.splice(this.todos.indexOf(todo), 1)
+			fetch(`http://localhost:3000/todos/${todo._id}`, {
+				method: 'DELETE'
+			})
+				.then(() => this.todos.splice(this.todos.indexOf(todo), 1))
 		},
 		editTodo(todo) {
 			this.editedTodo = todo
