@@ -10,6 +10,17 @@ new Vue({
 			.then(res => res.json())
 			.then(todos => this.todos = todos)
 	},
+	computed: {
+		remaining() {
+			let remainingCount = 0
+			for (const todo of this.todos) {
+				if (!todo.completed) {
+					remainingCount++
+				}
+			}
+			return remainingCount
+		},
+	},
 	methods: {
 		addTodo() {
 			fetch('http://localhost:3000/todos', {
@@ -66,6 +77,11 @@ new Vue({
 			this.editedTodo = null
 			todo.title = this.cachedTitle
 		},
+	},
+	filters: {
+		pluralize(n) {
+			return n === 1 ? 'item' : 'items'
+		}
 	},
 	directives: {
 		'todo-focus'(el, binding) {
